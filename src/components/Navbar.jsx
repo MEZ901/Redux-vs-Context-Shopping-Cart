@@ -13,9 +13,13 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { openDrawer } from "../features/drawer/drawerSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+
   const pages = [
     { path: "/", name: "Home" },
     { path: "/store", name: "Store" },
@@ -129,7 +133,11 @@ const Navbar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <IconButton aria-label="shopping cart" sx={{ mr: "10px" }}>
+            <IconButton
+              aria-label="shopping cart"
+              sx={{ mr: "10px" }}
+              onClick={() => dispatch(openDrawer())}
+            >
               <ShoppingCartIcon className="text-white" />
             </IconButton>
             <Tooltip title="Open settings">

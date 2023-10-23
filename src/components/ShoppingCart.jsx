@@ -3,9 +3,12 @@ import Drawer from "@mui/material/Drawer";
 import { Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import ShoppingCartItem from "./ShoppingCartItem";
+import { useDispatch } from "react-redux";
+import { closeDrawer } from "../features/drawer/drawerSlice";
 
-const ShoppingCart = ({ open, toggleDrawer }) => {
+const ShoppingCart = ({ open }) => {
   const [items, setItems] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setItems([
@@ -34,12 +37,16 @@ const ShoppingCart = ({ open, toggleDrawer }) => {
   }, []);
   return (
     <div>
-      <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
+      <Drawer
+        anchor="right"
+        open={open}
+        onClose={() => dispatch(closeDrawer())}
+      >
         <Box
           sx={{ width: 450 }}
           role="presentation"
-          onClick={toggleDrawer(false)}
-          onKeyDown={toggleDrawer(false)}
+          onClick={() => dispatch(closeDrawer())}
+          onKeyDown={() => dispatch(closeDrawer())}
         >
           <Typography variant="h5" sx={{ mt: 2, ml: 2, mb: 3 }}>
             Shopping Cart
