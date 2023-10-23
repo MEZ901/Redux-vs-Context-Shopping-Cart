@@ -83,16 +83,7 @@ const StoreItem = ({ element }) => {
                 </IconButton>
                 <Typography>{quantity} in cart</Typography>
                 <IconButton
-                  onClick={() =>
-                    dispatch(
-                      decreaseQuantity({
-                        id: element.id,
-                        title: element.title,
-                        price: element.price,
-                        image: element.images[0],
-                      })
-                    )
-                  }
+                  onClick={() => dispatch(decreaseQuantity(element.id))}
                 >
                   <RemoveIcon />
                 </IconButton>
@@ -101,16 +92,7 @@ const StoreItem = ({ element }) => {
                 variant="contained"
                 color="warning"
                 sx={{ width: "100%" }}
-                onClick={() =>
-                  dispatch(
-                    removeProduct({
-                      id: element.id,
-                      title: element.title,
-                      price: element.price,
-                      image: element.images[0],
-                    })
-                  )
-                }
+                onClick={() => dispatch(removeProduct(element.id))}
               >
                 Remove
               </Button>

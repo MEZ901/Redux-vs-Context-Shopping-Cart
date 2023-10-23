@@ -3,38 +3,12 @@ import Drawer from "@mui/material/Drawer";
 import { Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import ShoppingCartItem from "./ShoppingCartItem";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeDrawer } from "../features/drawer/drawerSlice";
 
 const ShoppingCart = ({ open }) => {
-  const [items, setItems] = useState([]);
+  const products = useSelector((state) => state.cart.products);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    setItems([
-      {
-        id: 36,
-        title: "Recycled Metal Pizza",
-        price: 559,
-        description:
-          "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
-        images: [
-          "https://i.imgur.com/M3QKiC5.jpeg",
-          "https://i.imgur.com/lVH533g.jpeg",
-          "https://i.imgur.com/fpT4052.jpeg",
-        ],
-        creationAt: "2023-10-23T05:28:59.000Z",
-        updatedAt: "2023-10-23T05:28:59.000Z",
-        category: {
-          id: 5,
-          name: "Others",
-          image: "https://i.imgur.com/Dm2pPfd.jpeg",
-          creationAt: "2023-10-23T05:28:59.000Z",
-          updatedAt: "2023-10-23T05:28:59.000Z",
-        },
-      },
-    ]);
-  }, []);
   return (
     <div>
       <Drawer
@@ -45,14 +19,13 @@ const ShoppingCart = ({ open }) => {
         <Box
           sx={{ width: 450 }}
           role="presentation"
-          onClick={() => dispatch(closeDrawer())}
           onKeyDown={() => dispatch(closeDrawer())}
         >
           <Typography variant="h5" sx={{ mt: 2, ml: 2, mb: 3 }}>
             Shopping Cart
           </Typography>
 
-          {items.length === 0 ? (
+          {products.length === 0 ? (
             <Typography
               variant="p"
               color="text.secondary"
@@ -61,7 +34,9 @@ const ShoppingCart = ({ open }) => {
               No items in cart
             </Typography>
           ) : (
-            items.map((item) => <ShoppingCartItem key={item.id} item={item} />)
+            products.map((item) => (
+              <ShoppingCartItem key={item.id} item={item} />
+            ))
           )}
         </Box>
       </Drawer>
