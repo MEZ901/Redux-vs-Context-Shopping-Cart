@@ -49,7 +49,6 @@ const Navbar = () => {
             variant="h6"
             noWrap
             component="a"
-            href="#"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -60,7 +59,7 @@ const Navbar = () => {
               textDecoration: "none",
             }}
           >
-            Shoppy
+            <Link to="/">Shoppy</Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -104,7 +103,6 @@ const Navbar = () => {
             variant="h5"
             noWrap
             component="a"
-            href="#"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -116,7 +114,7 @@ const Navbar = () => {
               textDecoration: "none",
             }}
           >
-            Shoppy
+            <Link to="/">Shoppy</Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
