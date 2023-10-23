@@ -6,22 +6,21 @@ import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { useState } from "react";
+import {
+  increaseQuantity,
+  decreaseQuantity,
+  removeProduct,
+} from "../features/cart/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectProductQuantity } from "../features/cart/cartSelector";
 
 const StoreItem = ({ element }) => {
-  const [quantity, setQuantity] = useState(0);
+  const dispatch = useDispatch();
 
-  const increaseCartQuantity = (id) => {
-    setQuantity((prev) => prev + 1);
-  };
+  const quantity = useSelector((state) =>
+    selectProductQuantity(state, element.id)
+  );
 
-  const decreaseCartQuantity = (id) => {
-    setQuantity((prev) => prev - 1);
-  };
-
-  const removeFromCart = (id) => {
-    setQuantity(0);
-  };
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -52,18 +51,49 @@ const StoreItem = ({ element }) => {
             <Button
               variant="contained"
               sx={{ width: "100%" }}
-              onClick={() => increaseCartQuantity(element.id)}
+              onClick={() =>
+                dispatch(
+                  increaseQuantity({
+                    id: element.id,
+                    title: element.title,
+                    price: element.price,
+                    image: element.images[0],
+                  })
+                )
+              }
             >
               + Add To Cart
             </Button>
           ) : (
             <div className="w-full flex items-center flex-col">
               <div className="flex items-center justify-center gap-3">
-                <IconButton onClick={() => increaseCartQuantity(element.id)}>
+                <IconButton
+                  onClick={() =>
+                    dispatch(
+                      increaseQuantity({
+                        id: element.id,
+                        title: element.title,
+                        price: element.price,
+                        image: element.images[0],
+                      })
+                    )
+                  }
+                >
                   <AddIcon />
                 </IconButton>
                 <Typography>{quantity} in cart</Typography>
-                <IconButton onClick={() => decreaseCartQuantity(element.id)}>
+                <IconButton
+                  onClick={() =>
+                    dispatch(
+                      decreaseQuantity({
+                        id: element.id,
+                        title: element.title,
+                        price: element.price,
+                        image: element.images[0],
+                      })
+                    )
+                  }
+                >
                   <RemoveIcon />
                 </IconButton>
               </div>
@@ -71,7 +101,16 @@ const StoreItem = ({ element }) => {
                 variant="contained"
                 color="warning"
                 sx={{ width: "100%" }}
-                onClick={() => removeFromCart(element.id)}
+                onClick={() =>
+                  dispatch(
+                    removeProduct({
+                      id: element.id,
+                      title: element.title,
+                      price: element.price,
+                      image: element.images[0],
+                    })
+                  )
+                }
               >
                 Remove
               </Button>
