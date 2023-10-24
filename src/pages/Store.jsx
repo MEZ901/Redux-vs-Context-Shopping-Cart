@@ -5,18 +5,19 @@ import { useShoppingCart } from "../context";
 
 const Store = () => {
   const [elements, setElements] = useState([]);
-  const [open, setOpen] = useState(false);
   const { increaseCartQuantity, decreaseCartQuantity, getItemQuantity } = useShoppingCart();
 
   useEffect(() => {
     fetch("https://api.escuelajs.co/api/v1/products")
       .then((res) => res.json())
       .then((data) => setElements(data));
+      console.log('this is a render ')
   }, []);
+
 
   return (
     <div className="flex flex-wrap gap-5 m-5 justify-center">
-      <ShoppingCart open={open} />
+      <ShoppingCart />
       {elements.map((element, index) => (
         <StoreItem
           key={index}

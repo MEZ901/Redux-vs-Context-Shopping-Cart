@@ -1,7 +1,6 @@
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import {  Typography } from "@mui/material";
-import { useEffect } from "react";
 import { useShoppingCart } from "../context";
 import ShoppingCartItem from "./ShoppingCartItem";
 

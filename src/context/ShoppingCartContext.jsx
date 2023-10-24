@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useState } from "react";
+import {createContext, useContext, useState } from "react";
 import { ShoppingCart } from "../components";
 
 const ShoppingCartContext = createContext({});
@@ -6,9 +6,10 @@ const ShoppingCartContext = createContext({});
 export const useShoppingCart = () => useContext(ShoppingCartContext);
 
 export const ShoppingCartProvider = ({ children }) => {
+
   const [cartItems, setCartItems] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-
+  
   const openCart = () => setIsOpen(true);
 
   const closeCart = () => setIsOpen(false);
@@ -31,8 +32,6 @@ export const ShoppingCartProvider = ({ children }) => {
       }
     });
   };
-
-
 
   const decreaseCartQuantity = (id) => {
     setCartItems((currItems) => {
