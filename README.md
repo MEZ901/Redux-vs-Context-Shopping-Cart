@@ -28,7 +28,11 @@ If you're new to this project, you can follow these steps to get started:
    ```bash
    git clone git@github.com:MEZ901/Redux-vs-Context-Shopping-Cart.git
    ```
-2. Choose the branch that aligns with your interest:
+2. Navigate to the project directory:
+   ```bash
+   cd Redux-vs-Context-Shopping-Cart
+   ```
+3. Choose the branch that aligns with your interest:
    - For Redux:
      ```bash
      git checkout redux
@@ -37,4 +41,4 @@ If you're new to this project, you can follow these steps to get started:
      ```bash
      git checkout context-api
      ```
-3. Follow the instructions in the respective branch's README to set up and run the project.
+4. Follow the instructions in the respective branch's README to set up and run the project.
