@@ -1,28 +1,48 @@
-import { Button, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { Button } from "@mui/material";
+import { useShoppingCart } from "../context";
 
 const ShoppingCartItem = ({ item }) => {
+  const {removeFromCart} = useShoppingCart()
   return (
-    <div className="w-full flex items-center m-2">
-      <img
-        src={item.images[0]}
+    <Card sx={{ display: "flex", m: 2 }}>
+      <CardMedia
+        component="img"
+        sx={{ width: 151 }}
+        image={item.image}
         alt="image"
-        width="25%"
-        className="rounded-sm"
       />
-      <div className="w-full flex flex-col items-center">
-        <Typography variant="h6" sx={{ ml: 2 }}>
-          {item.title}
-        </Typography>
-
-        <Typography variant="h6" sx={{ ml: 2 }}>
-          {item.price}$
-        </Typography>
-
-        <Button variant="contained" color="warning" className="w-[75%]">
-          remove
-        </Button>
-      </div>
-    </div>
+      <Box
+        sx={{ display: "flex", flexDirection: "column", width: "100%", pr: 1 }}
+      >
+        <CardContent sx={{ flex: "1 0 auto" }}>
+          <Typography component="div" variant="h5">
+            {item.title}
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            color="text.secondary"
+            component="div"
+          >
+            {item.price}$ x {item.quantity}
+          </Typography>
+        </CardContent>
+        <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
+          <Button
+            variant="contained"
+            color="warning"
+            sx={{ width: "100%" }}
+            onClick={() => removeFromCart(item.id)}
+          >
+            Remove
+          </Button>
+        </Box>
+      </Box>
+    </Card>
   );
 };
 

@@ -6,22 +6,19 @@ import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { useShoppingCart } from "../context"; 
 import { useState } from "react";
 
 const StoreItem = ({ element }) => {
-  const [quantity, setQuantity] = useState(0);
+  const {
+    getItemQuantity,
+    increaseCartQuantity,
+    decreaseCartQuantity,
+    removeFromCart,
+  } = useShoppingCart(); 
 
-  const increaseCartQuantity = (id) => {
-    setQuantity((prev) => prev + 1);
-  };
+  const quantity = getItemQuantity(element.id);
 
-  const decreaseCartQuantity = (id) => {
-    setQuantity((prev) => prev - 1);
-  };
-
-  const removeFromCart = (id) => {
-    setQuantity(0);
-  };
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -52,19 +49,19 @@ const StoreItem = ({ element }) => {
             <Button
               variant="contained"
               sx={{ width: "100%" }}
-              onClick={() => increaseCartQuantity(element.id)}
+              onClick={() => increaseCartQuantity({id: element.id, title: element.title, image: element.images[0], price: element.price})}
             >
               + Add To Cart
             </Button>
           ) : (
             <div className="w-full flex items-center flex-col">
               <div className="flex items-center justify-center gap-3">
-                <IconButton onClick={() => increaseCartQuantity(element.id)}>
-                  <AddIcon />
-                </IconButton>
-                <Typography>{quantity} in cart</Typography>
                 <IconButton onClick={() => decreaseCartQuantity(element.id)}>
                   <RemoveIcon />
+                </IconButton>
+                <Typography>{quantity} in cart</Typography>
+                <IconButton onClick={() => increaseCartQuantity({id: element.id, title: element.title, image: element.images[0], price: element.price})}>
+                  <AddIcon />
                 </IconButton>
               </div>
               <Button
